@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arko Network — Travel Simple Flow</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: transparent;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Diagram */
+    .diagram {
+      position: relative;
+      width: 745px;
+      height: 200px;
+    }
+
+    .connectors {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    /* Node Cards */
+    .node {
+      position: absolute;
+      width: 175px;
+      height: 168px;
+      background: #162040;
+      border: 1px solid #2A3A62;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 14px;
+    }
+
+    .node-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .node-logo {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .chip-primary {
+      background: #4966FF;
+      color: #FFFFFF;
+    }
+
+    .chip-secondary {
+      background: rgba(0, 201, 167, 0.15);
+      border: 1px solid #00C9A7;
+      color: #00C9A7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Diagram -->
+  <div class="diagram">
+
+    <!-- SVG Connector Layer -->
+    <svg class="connectors" viewBox="0 0 745 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-blue" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+          <polygon points="0 0, 12 4, 0 8" fill="#4966FF" />
+        </marker>
+      </defs>
+
+      <!--
+        Cards: 175×168px  |  Gap: 110px (50% of 220px)
+        C1=0  C2=285  C3=570
+        Row top=16, center_y=16+84=100
+      -->
+
+      <!-- Arrow 1: Merchant → Arko Network -->
+      <path d="M 176 100 L 283 100" stroke="#4966FF" stroke-width="2.5" fill="none" marker-end="url(#arrow-blue)" />
+      <circle cx="230" cy="100" r="12" fill="#4966FF" />
+      <text x="230" y="100" text-anchor="middle" dominant-baseline="central"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="11" font-weight="700"
+        fill="white">1</text>
+
+      <!-- Arrow 2: Arko Network → Merchant Bank -->
+      <path d="M 461 100 L 568 100" stroke="#4966FF" stroke-width="2.5" fill="none" marker-end="url(#arrow-blue)" />
+      <circle cx="515" cy="100" r="12" fill="#4966FF" />
+      <text x="515" y="100" text-anchor="middle" dominant-baseline="central"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="11" font-weight="700"
+        fill="white">2</text>
+    </svg>
+
+    <!-- Node 1: Merchant (col1) -->
+    <div class="node" style="left:0px; top:16px;">
+      <div class="node-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="11" width="18" height="10" rx="1" stroke="white" stroke-width="1.8" fill="none" />
+          <path d="M3 11l2-6h14l2 6" stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none" />
+          <path d="M9 21V15h6v6" stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none" />
+          <path d="M9 11a3 3 0 01-6 0" stroke="white" stroke-width="1.5" fill="none" />
+          <path d="M15 11a3 3 0 01-6 0" stroke="white" stroke-width="1.5" fill="none" />
+          <path d="M21 11a3 3 0 01-6 0" stroke="white" stroke-width="1.5" fill="none" />
+        </svg>
+      </div>
+      <span class="chip chip-secondary">Merchant</span>
+    </div>
+
+    <!-- Node 2: Arko Network (col2) -->
+    <div class="node" style="left:285px; top:16px;">
+      <div class="node-logo">
+        <svg width="100" height="49" viewBox="0 0 1200 583" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#nc2clip0)">
+            <g clip-path="url(#nc2clip1)">
+              <path
+                d="M136.83 432.356C110.873 432.356 87.4691 425.86 66.6459 412.896C45.7938 399.932 29.4949 382.212 17.6912 359.823C5.88754 337.434 0.000213623 312.232 0.000213623 284.303C0.000213623 256.374 5.88754 230.621 17.6912 208.203C29.4949 185.785 45.7938 168.094 66.6459 155.13C87.4691 142.166 110.873 135.67 136.83 135.67C157.276 135.67 175.547 139.788 191.672 148.053C207.797 156.319 220.674 167.804 230.302 182.565C239.931 197.298 245.151 213.916 245.934 232.419V335.056C245.151 353.936 239.931 370.641 230.302 385.2C220.674 399.758 207.797 411.243 191.672 419.712C175.547 428.151 157.247 432.385 136.83 432.385V432.356ZM150.983 360.983C172.618 360.983 190.106 353.82 203.476 339.464C216.845 325.108 223.545 306.547 223.545 283.723C223.545 268.787 220.5 255.504 214.409 243.904C208.319 232.303 199.85 223.255 189.033 216.758C178.215 210.262 165.541 207.014 150.983 207.014C136.424 207.014 124.33 210.262 113.513 216.758C102.695 223.255 94.2555 232.303 88.1361 243.904C82.0458 255.504 79.0006 268.787 79.0006 283.723C79.0006 298.659 82.0458 312.522 88.1361 324.122C94.2265 335.723 102.666 344.771 113.513 351.268C124.33 357.764 136.801 361.012 150.983 361.012V360.983ZM219.397 426.469V349.789L231.781 280.185L219.397 211.77V141.586H296.078V426.469H219.397Z"
+                fill="#FFFFFF" />
+              <path
+                d="M332.62 426.44V141.557H409.88V426.44H332.62ZM409.88 268.961L379.806 248.892C383.344 213.887 393.552 186.278 410.489 166.034C427.397 145.791 451.787 135.67 483.631 135.67C497.378 135.67 509.762 137.932 520.782 142.456C531.774 146.98 541.809 154.347 550.857 164.584L502.482 220.035C498.161 215.308 492.941 211.77 486.85 209.421C480.76 207.072 473.771 205.883 465.911 205.883C449.409 205.883 435.924 211.103 425.512 221.514C415.1 231.926 409.88 247.761 409.88 268.99V268.961Z"
+                fill="#FFFFFF" />
+              <path
+                d="M575.073 426.44V-1.90735e-06H652.333V426.44H575.073ZM756.739 426.44L646.446 279.576L756.159 141.557H845.223L716.63 297.267L719.588 259.507L851.111 426.44H756.739Z"
+                fill="#FFFFFF" />
+              <path
+                d="M1128.95 272.47V273.021H1055.66C1055.66 259.159 1052.73 246.978 1046.9 236.392C1041.07 225.836 1033.04 217.512 1022.83 211.48C1012.65 205.477 1000.79 202.46 987.273 202.46C973.758 202.46 962.477 205.477 952.297 211.48C942.089 217.512 934.055 225.807 928.226 236.392C922.397 246.949 919.496 259.159 919.496 273.021H846.18V272.47C846.18 246.572 852.387 223.342 864.799 202.75C877.183 182.159 894.149 165.744 915.639 153.506C937.158 141.296 961.027 135.206 987.273 135.206C1013.52 135.206 1038.43 141.296 1059.75 153.506C1081.06 165.744 1097.94 182.159 1110.33 202.75C1122.71 223.342 1128.95 246.572 1128.95 272.47Z"
+                fill="#4966FF" />
+              <path
+                d="M846.18 295.062V294.511H919.467C919.467 308.374 922.397 320.555 928.226 331.14C934.055 341.697 942.089 350.02 952.297 356.053C962.477 362.056 974.338 365.072 987.853 365.072C1001.37 365.072 1012.65 362.056 1022.83 356.053C1033.04 350.02 1041.07 341.726 1046.9 331.14C1052.73 320.555 1055.63 308.374 1055.63 294.511H1128.95V295.062C1128.95 320.961 1122.74 344.191 1110.33 364.782C1097.94 385.373 1080.98 401.788 1059.49 414.027C1037.97 426.237 1014.1 432.327 987.853 432.327C961.607 432.327 936.694 426.237 915.378 414.027C894.062 401.788 877.183 385.373 864.799 364.782C852.416 344.191 846.18 320.961 846.18 295.062Z"
+                fill="#FFFFFF" />
+              <path
+                d="M1168.85 426.527C1186.04 426.527 1199.97 412.595 1199.97 395.408C1199.97 378.222 1186.04 364.29 1168.85 364.29C1151.67 364.29 1137.73 378.222 1137.73 395.408C1137.73 412.595 1151.67 426.527 1168.85 426.527Z"
+                fill="#4966FF" />
+            </g>
+          </g>
+          <defs>
+            <clipPath id="nc2clip0">
+              <rect width="1200" height="583" fill="white" />
+            </clipPath>
+            <clipPath id="nc2clip1">
+              <rect width="1200" height="432.356" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      <span class="chip chip-primary">Arko Network</span>
+    </div>
+
+    <!-- Node 3: Merchant Bank (col3) -->
+    <div class="node" style="left:570px; top:16px;">
+      <div class="node-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21h18" stroke="white" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M3 10h18" stroke="white" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M5 10V21" stroke="white" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M19 10V21" stroke="white" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M9 10V21" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M15 10V21" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M12 3L21 10H3L12 3Z" stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none" />
+        </svg>
+      </div>
+      <span class="chip chip-secondary">Supplier</span>
+    </div>
+
+  </div><!-- /diagram -->
+
+</body>
+
+</html>

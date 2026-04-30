@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arko Network — One-Pager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════ */
+    /* RESET & BASE (from V3)                      */
+    /* ═══════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: #6366F1;
+      --accent-hover: #4F46E5;
+      --accent-light: rgba(99, 102, 241, 0.08);
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --dark: #0F0D2E;
+      --dark2: #1A1745;
+      --dark3: #252254;
+      --text-primary: #1E1B3A;
+      --text-secondary: #5B5E76;
+      --text-muted: #9CA3AF;
+      --bg-white: #FFFFFF;
+      --bg-light: #F8F9FC;
+      --bg-tertiary: #F1F3F9;
+      --border: #E5E7EB;
+      --success: #10B981;
+      --warning: #F59E0B;
+    }
+
+    html {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* PAGE CONTAINER                              */
+    /* ═══════════════════════════════════════════ */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--bg-white);
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* TYPOGRAPHY (from V3)                        */
+    /* ═══════════════════════════════════════════ */
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* HEADER — DARK (matches V3 slide-dark)       */
+    /* ═══════════════════════════════════════════ */
+    .header {
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 85% 20%, rgba(99, 102, 241, 0.08), transparent),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(99, 102, 241, 0.05), transparent);
+      padding: 36px 48px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo svg {
+      height: 30px;
+      width: auto;
+    }
+
+    .tagline-badge {
+      background: rgba(99, 102, 241, 0.07);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 8px;
+      letter-spacing: 1.5px;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-hook {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .header-positioning {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.5;
+    }
+
+    .cover-accent-bar {
+      width: 56px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* TWO-COLUMN BODY                             */
+    /* ═══════════════════════════════════════════ */
+    .body {
+      display: flex;
+      gap: 48px;
+      padding: 32px 48px 28px;
+      flex: 1;
+    }
+
+    .col-left,
+    .col-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* PAIN NUMBER CARDS (from V3 .pain-number-card) */
+    /* ═══════════════════════════════════════════ */
+    .pain-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .pain-number-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .pain-number-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+    }
+
+    .pain-number-card:hover {
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.08);
+    }
+
+    .pain-number-val {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+      min-width: 72px;
+    }
+
+    .pain-number-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* Impact footer (V3 .pain-footer style) */
+    .pain-footer {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      padding: 16px 20px;
+      border-radius: 16px;
+      margin-top: 14px;
+    }
+
+    .pain-footer-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .pain-footer-text strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* VALUE BOXES (from V3 .why-box)              */
+    /* ═══════════════════════════════════════════ */
+    .value-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .why-box {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .why-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .why-box:hover {
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.08);
+    }
+
+    .icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-circle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .icon-circle.accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .icon-circle.light {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .icon-circle.success-bg {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+    }
+
+    .why-box-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .why-box-main {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .why-box-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* PROOF CARD (V3 case-hero dark block style)  */
+    /* ═══════════════════════════════════════════ */
+    .proof-card {
+      margin-top: 14px;
+      background: var(--dark3);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 16px;
+      padding: 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .proof-strip {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 14px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .proof-numbers {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proof-val {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    .proof-val.accent {
+      color: var(--accent);
+    }
+
+    .proof-arrow {
+      color: rgba(99, 102, 241, 0.6);
+      flex-shrink: 0;
+    }
+
+    .proof-arrow svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .proof-detail {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 4px;
+    }
+
+    .proof-context {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* CTA FOOTER (V3 contact slide style)         */
+    /* ═══════════════════════════════════════════ */
+    .cta-footer {
+      background: var(--accent);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cta-left h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .cta-contacts {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .cta-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cta-contact-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cta-contact-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .cta-contact-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cta-contact-text a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .cta-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .location-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* BOTTOM BAR (from V3)                        */
+    /* ═══════════════════════════════════════════ */
+    .bottom-bar {
+      height: 5px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* PRINT STYLES                                */
+    /* ═══════════════════════════════════════════ */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        max-height: 297mm;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        overflow: hidden;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .pain-number-card:hover,
+      .why-box:hover {
+        box-shadow: none;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* MOBILE / WHATSAPP PREVIEW                   */
+    /* ═══════════════════════════════════════════ */
+    @media screen and (max-width: 680px) {
+      body {
+        padding: 0;
+        min-height: auto;
+      }
+
+      .page {
+        width: 100%;
+        min-height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+      }
+
+      .header {
+        padding: 24px 20px 20px;
+      }
+
+      .header-hook {
+        font-size: 22px;
+      }
+
+      .body {
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 28px;
+      }
+
+      .cta-footer {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .cta-contacts {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .cta-right {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ═══════════ HEADER (V3 dark slide pattern) ═══════════ -->
+    <div class="header">
+      <div class="header-top">
+        <div class="logo">
+          <svg viewBox="0 0 1200 432" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#c0)"><g clip-path="url(#c1)">
+              <path d="M136.83 432.356C110.873 432.356 87.4691 425.86 66.646 412.896C45.7938 399.932 29.4949 382.212 17.6912 359.823C5.88757 337.434 0 312.232 0 284.303C0 256.374 5.88757 230.621 17.6912 208.203C29.4949 185.785 45.7938 168.094 66.646 155.13C87.4691 142.166 110.873 135.67 136.83 135.67C157.276 135.67 175.547 139.788 191.672 148.053C207.797 156.319 220.674 167.804 230.302 182.565C239.931 197.298 245.151 213.916 245.934 232.419V335.056C245.151 353.936 239.931 370.641 230.302 385.2C220.674 399.758 207.797 411.243 191.672 419.712C175.547 428.151 157.247 432.385 136.83 432.385V432.356ZM150.983 360.983C172.618 360.983 190.106 353.82 203.476 339.464C216.845 325.108 223.545 306.547 223.545 283.723C223.545 268.787 220.5 255.504 214.409 243.904C208.319 232.303 199.85 223.255 189.033 216.758C178.215 210.262 165.541 207.014 150.983 207.014C136.424 207.014 124.33 210.262 113.513 216.758C102.695 223.255 94.2555 232.303 88.1362 243.904C82.0458 255.504 79.0007 268.787 79.0007 283.723C79.0007 298.659 82.0458 312.522 88.1362 324.122C94.2265 335.723 102.666 344.771 113.513 351.268C124.33 357.764 136.801 361.012 150.983 361.012V360.983ZM219.398 426.469V349.789L231.781 280.185L219.398 211.77V141.586H296.078V426.469H219.398Z" fill="#E5E7E8"/>
+              <path d="M332.62 426.44V141.557H409.88V426.44H332.62ZM409.88 268.961L379.806 248.892C383.344 213.887 393.552 186.278 410.489 166.034C427.397 145.791 451.787 135.67 483.631 135.67C497.378 135.67 509.762 137.932 520.782 142.456C531.774 146.98 541.809 154.347 550.857 164.584L502.482 220.035C498.161 215.308 492.941 211.77 486.85 209.421C480.76 207.072 473.771 205.883 465.911 205.883C449.409 205.883 435.924 211.103 425.512 221.514C415.1 231.926 409.88 247.761 409.88 268.99V268.961Z" fill="#E5E7E8"/>
+              <path d="M575.073 426.44V0H652.334V426.44H575.073ZM756.739 426.44L646.446 279.576L756.159 141.557H845.223L716.63 297.267L719.588 259.507L851.111 426.44H756.739Z" fill="#E5E7E8"/>
+              <path d="M1128.95 272.47V273.021H1055.66C1055.66 259.159 1052.73 246.978 1046.9 236.392C1041.07 225.836 1033.04 217.512 1022.83 211.48C1012.65 205.477 1000.79 202.46 987.273 202.46C973.758 202.46 962.477 205.477 952.297 211.48C942.089 217.512 934.055 225.807 928.226 236.392C922.397 246.949 919.496 259.159 919.496 273.021H846.18V272.47C846.18 246.572 852.387 223.342 864.799 202.75C877.183 182.159 894.149 165.744 915.639 153.506C937.158 141.296 961.027 135.206 987.273 135.206C1013.52 135.206 1038.43 141.296 1059.75 153.506C1081.06 165.744 1097.94 182.159 1110.33 202.75C1122.71 223.342 1128.95 246.572 1128.95 272.47Z" fill="#4966FF"/>
+              <path d="M846.18 295.062V294.511H919.467C919.467 308.374 922.397 320.555 928.226 331.14C934.055 341.697 942.089 350.02 952.297 356.053C962.477 362.056 974.338 365.072 987.853 365.072C1001.37 365.072 1012.65 362.056 1022.83 356.053C1033.04 350.02 1041.07 341.726 1046.9 331.14C1052.73 320.555 1055.63 308.374 1055.63 294.511H1128.95V295.062C1128.95 320.961 1122.74 344.191 1110.33 364.782C1097.94 385.373 1080.98 401.788 1059.49 414.027C1037.97 426.237 1014.1 432.327 987.853 432.327C961.607 432.327 936.694 426.237 915.378 414.027C894.062 401.788 877.183 385.373 864.799 364.782C852.416 344.191 846.18 320.961 846.18 295.062Z" fill="#E5E7E8"/>
+              <path d="M1168.85 426.527C1186.04 426.527 1199.97 412.595 1199.97 395.408C1199.97 378.222 1186.04 364.29 1168.85 364.29C1151.67 364.29 1137.73 378.222 1137.73 395.408C1137.73 412.595 1151.67 426.527 1168.85 426.527Z" fill="#4966FF"/>
+            </g></g>
+            <defs>
+              <clipPath id="c0"><rect width="1200" height="432" fill="white"/></clipPath>
+              <clipPath id="c1"><rect width="1200" height="432.356" fill="white"/></clipPath>
+            </defs>
+          </svg>
+        </div>
+        <span class="tagline-badge">Process. Settle. Scale.</span>
+      </div>
+      <div class="header-content">
+        <div class="cover-accent-bar"></div>
+        <h1 class="header-hook">Pagamentos internacionais deveriam ser<br>tão simples quanto um Pix.</h1>
+        <p class="header-positioning">A infraestrutura que transforma pagamentos em vantagem competitiva.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════ BODY ═══════════ -->
+    <div class="body">
+
+      <!-- LEFT COLUMN — Pain -->
+      <div class="col-left">
+        <div class="section-label">Onde a operação perde valor</div>
+        <div class="pain-cards">
+          <div class="pain-number-card">
+            <div class="pain-number-val">3,5%</div>
+            <div class="pain-number-label">de margem comprometida por tributos mal estruturados</div>
+          </div>
+          <div class="pain-number-card">
+            <div class="pain-number-val">62%</div>
+            <div class="pain-number-label">dos clientes com objeção a custos variáveis e falta de transparência</div>
+          </div>
+          <div class="pain-number-card">
+            <div class="pain-number-val">30%</div>
+            <div class="pain-number-label">de overhead na gestão operacional de pagamentos internacionais</div>
+          </div>
+        </div>
+        <div class="pain-footer">
+          <p class="pain-footer-text">A cada <strong>R$10M</strong> pagos ao exterior → até <strong>R$350K</strong> deixam de virar margem.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN — Value -->
+      <div class="col-right">
+        <div class="section-label">A Arko resolve</div>
+        <div class="value-cards">
+
+          <div class="why-box">
+            <div class="icon-circle accent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div>
+              <div class="why-box-label">Resultado</div>
+              <div class="why-box-main">+3,5% de lucro adicional</div>
+              <div class="why-box-sub">Estrutura tributária otimizada que recupera margem perdida</div>
+            </div>
+          </div>
+
+          <div class="why-box">
+            <div class="icon-circle accent" style="background: var(--success);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <div class="why-box-label">Certeza</div>
+              <div class="why-box-main">Estrutura desenhada para sua operação</div>
+              <div class="why-box-sub">Compliance e segurança jurídica personalizados</div>
+            </div>
+          </div>
+
+          <div class="why-box">
+            <div class="icon-circle accent" style="background: #8B5CF6;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div>
+              <div class="why-box-label">Esforço</div>
+              <div class="why-box-main">Baixa complexidade de implementação</div>
+              <div class="why-box-sub">Integração sem atrito com seu fluxo operacional atual</div>
+            </div>
+          </div>
+
+          <div class="why-box">
+            <div class="icon-circle accent" style="background: #EC4899;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="why-box-label">Tempo</div>
+              <div class="why-box-main">Go-live em até 4 dias</div>
+              <div class="why-box-sub">Da análise ao primeiro pagamento em menos de uma semana</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Proof (V3 case-hero dark block) -->
+        <div class="proof-card">
+          <div class="proof-strip">Caso Real</div>
+          <div class="proof-numbers">
+            <div>
+              <div class="proof-val">R$ 10M+</div>
+              <div class="proof-detail">por mês em pagamentos</div>
+            </div>
+            <div class="proof-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <div>
+              <div class="proof-val accent">R$ 4M+</div>
+              <div class="proof-detail">de margem adicional</div>
+            </div>
+          </div>
+          <p class="proof-context">Operador executivo de viagens · 6 meses</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════ CTA FOOTER (V3 accent style) ═══════════ -->
+    <div class="cta-footer">
+      <div class="cta-left">
+        <h3>Pronto para simplificar sua operação internacional?</h3>
+        <div class="cta-contacts">
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <span class="cta-contact-text"><a href="https://arko.network">arko.network</a></span>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span class="cta-contact-text">contact@arko.network</span>
+          </div>
+        </div>
+      </div>
+      <div class="cta-right">
+        <div class="location-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Florida, US
+        </div>
+        <div class="location-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          São Paulo, BR
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

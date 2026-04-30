@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arko Network — Sales Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════ */
+    /* RESET & BASE                                */
+    /* ═══════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: #6366F1;
+      --accent-hover: #4F46E5;
+      --accent-light: rgba(99, 102, 241, 0.08);
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --dark: #0F0D2E;
+      --dark2: #1A1745;
+      --dark3: #252254;
+      --text-primary: #1E1B3A;
+      --text-secondary: #5B5E76;
+      --text-muted: #9CA3AF;
+      --bg-white: #FFFFFF;
+      --bg-light: #F8F9FC;
+      --bg-tertiary: #F1F3F9;
+      --border: #E5E7EB;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --slide-w: 1920px;
+      --slide-h: 1080px;
+    }
+
+    html {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--dark);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    @media screen {
+      .deck {
+        transform-origin: center center;
+      }
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE CONTAINER                             */
+    /* ═══════════════════════════════════════════ */
+    .deck {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateX(30px);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* NAVIGATION                                  */
+    /* ═══════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(15, 13, 46, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 10px 20px;
+      border-radius: 40px;
+      z-index: 100;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      font-size: 18px;
+    }
+
+    .nav button:hover {
+      background: rgba(99, 102, 241, 0.25);
+    }
+
+    .nav button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .nav button:disabled:hover {
+      background: none;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .nav-counter {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      font-weight: 500;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* TYPOGRAPHY                                  */
+    /* ═══════════════════════════════════════════ */
+    .section-label {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .slide-title {
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .slide-title.light {
+      color: #fff;
+    }
+
+    .slide-subtitle {
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 840px;
+    }
+
+    .slide-subtitle.light {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* DARK SLIDES                                 */
+    /* ═══════════════════════════════════════════ */
+    .slide-dark {
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 85% 20%, rgba(99, 102, 241, 0.08), transparent),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(99, 102, 241, 0.05), transparent);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* LIGHT SLIDES                                */
+    /* ═══════════════════════════════════════════ */
+    .slide-light {
+      background: var(--bg-white);
+    }
+
+    .slide-gray {
+      background: var(--bg-light);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* REUSABLE CARD                               */
+    /* ═══════════════════════════════════════════ */
+    .card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.08);
+    }
+
+    .card-dark {
+      background: var(--dark3);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-circle svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .icon-circle.accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .icon-circle.light {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .icon-circle.success-bg {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+    }
+
+    .icon-circle.warning-bg {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--warning);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--warning);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* COVER SLIDE                                 */
+    /* ═══════════════════════════════════════════ */
+    .cover {
+      justify-content: center;
+      padding: 80px 120px;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -120px;
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -90px;
+      right: 240px;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-company {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: var(--accent);
+      margin-bottom: 30px;
+    }
+
+    .cover-title {
+      font-size: 76px;
+      font-weight: 800;
+      line-height: 1.08;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      max-width: 920px;
+    }
+
+    .cover-accent-bar {
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+
+    .cover-meta {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 56px;
+    }
+
+    .cover-promise {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+    }
+
+    .cover-grid {
+      position: absolute;
+      right: 90px;
+      top: 80px;
+      bottom: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      z-index: 2;
+      align-content: center;
+    }
+
+    .cover-stat {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 16px;
+      padding: 36px 32px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cover-stat-val {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cover-stat-label {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* POSITIONING / STATEMENT SLIDE               */
+    /* ═══════════════════════════════════════════ */
+    .positioning {
+      padding: 80px 120px;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .positioning-statement {
+      background: var(--dark3);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 20px;
+      padding: 52px 60px;
+      border-left: 5px solid var(--accent);
+      max-width: 1350px;
+    }
+
+    .positioning-main {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .positioning-sub {
+      font-size: 20px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .promise-box {
+      background: var(--accent);
+      border-radius: 14px;
+      padding: 34px 42px;
+      max-width: 945px;
+    }
+
+    .promise-label {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .promise-text {
+      font-size: 39px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* CONTACT / CTA SLIDE                         */
+    /* ═══════════════════════════════════════════ */
+    .contact {
+      padding: 80px 120px;
+      justify-content: center;
+    }
+
+    .contact-body {
+      display: flex;
+      gap: 90px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .contact-left {
+      flex: 1;
+    }
+
+    .contact-cta-text {
+      font-size: 24px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    .contact-bar {
+      width: 72px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .contact-label {
+      font-size: 20px;
+      color: var(--text-primary);
+    }
+
+    .contact-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+
+    .contact-right {
+      width: 500px;
+      background: var(--accent);
+      border-radius: 28px;
+      padding: 64px 52px;
+      text-align: center;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-right-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .contact-right-sub {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+      margin-bottom: 36px;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      color: var(--accent);
+      font-size: 20px;
+      font-weight: 700;
+      padding: 18px 40px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .contact-footer {
+      position: absolute;
+      bottom: 48px;
+      left: 120px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* BOTTOM BAR (light slides)                   */
+    /* ═══════════════════════════════════════════ */
+    .bottom-bar {
+      height: 5px;
+      background: var(--accent);
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* LOGOS                                       */
+    /* ═══════════════════════════════════════════ */
+    .cover-logo {
+      width: 340px;
+      margin-bottom: 36px;
+      display: block;
+    }
+
+    .slide-logo {
+      position: absolute;
+      top: 80px;
+      right: 120px;
+      width: 160px;
+      z-index: 10;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* KEYBOARD HINT                               */
+    /* ═══════════════════════════════════════════ */
+    .key-hint {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.25);
+      z-index: 100;
+    }
+
+    .key-hint kbd {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-size: 11px;
+      margin: 0 2px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 1: LIDERANÇA (About)                  */
+    /* ═══════════════════════════════════════════ */
+    .about {
+      padding: 80px 120px 72px;
+    }
+
+    .about-body {
+      display: flex;
+      gap: 72px;
+      margin-top: 40px;
+      flex: 1;
+      align-items: center;
+      padding-bottom: 108px;
+    }
+
+    .about-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      justify-content: center;
+    }
+
+    .about-text {
+      font-size: 22px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+
+    .about-right {
+      width: 720px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 1fr;
+      gap: 20px;
+    }
+
+    .founder-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .founder-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-light), rgba(99, 102, 241, 0.18));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .founder-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .founder-info {
+      flex: 1;
+    }
+
+    .founder-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .founder-role {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+
+    .founder-bio {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 2: NÚMEROS-CHAVE                      */
+    /* ═══════════════════════════════════════════ */
+    .numbers {
+      padding: 80px 120px 72px;
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 52px;
+    }
+
+    .number-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .number-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .number-card .icon-circle {
+      margin: 0 auto 28px;
+    }
+
+    .number-val {
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .number-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .number-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .bottom-rows {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 36px;
+    }
+
+    .geo-row {
+      border-top: 1px solid var(--border);
+    }
+
+    .geo-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .geo-item:last-child {
+      border-bottom: none;
+    }
+
+    .geo-icon {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .geo-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .geo-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 3: HOOK (minimal)                     */
+    /* ═══════════════════════════════════════════ */
+    .hook {
+      justify-content: center;
+      align-items: center;
+      padding: 80px 120px;
+    }
+
+    .hook-content {
+      text-align: center;
+      max-width: 1200px;
+    }
+
+    .hook-main {
+      font-size: 86px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 40px;
+    }
+
+    .hook-sub {
+      font-size: 30px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.5px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 5: PAIN SLIDE                         */
+    /* ═══════════════════════════════════════════ */
+    .pain {
+      padding: 60px 120px 0;
+    }
+
+    .pain-body {
+      display: flex;
+      gap: 64px;
+      margin-top: 28px;
+      flex: 1;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .pain-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pain-bullet {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 28px;
+      border-left: 4px solid var(--accent);
+      flex: 1;
+    }
+
+    .pain-bullet-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pain-bullet-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .pain-bullet-text {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+
+    .pain-right {
+      width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pain-number-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 32px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pain-number-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--warning);
+    }
+
+    .pain-number-val {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--warning);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .pain-number-label {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    .pain-footer {
+      background: var(--text-primary);
+      padding: 22px 120px;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+
+    .pain-footer-text {
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+    }
+
+    .pain-footer-text strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 6: PROMISED LAND                      */
+    /* ═══════════════════════════════════════════ */
+    .promised-land {
+      padding: 80px 120px 72px;
+    }
+
+    .promised-land-body {
+      display: flex;
+      gap: 72px;
+      margin-top: 44px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .promised-land-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .promised-land-statement {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .promised-land-sub {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .promised-land-right {
+      width: 640px;
+      height: 440px;
+      background: var(--bg-light);
+      border: 2px dashed var(--border);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .promised-land-right-label {
+      font-size: 17px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 7: PLATFORM                           */
+    /* ═══════════════════════════════════════════ */
+    .platform {
+      padding: 80px 120px 72px;
+    }
+
+    .platform-body {
+      display: flex;
+      gap: 72px;
+      margin-top: 44px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .platform-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .platform-benefit {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    .platform-benefit-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .platform-benefit-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .platform-benefit-text {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+      padding-top: 12px;
+    }
+
+    .platform-closing {
+      margin-top: 12px;
+      padding: 28px 32px;
+      background: var(--accent);
+      border-radius: 14px;
+    }
+
+    .platform-closing-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .platform-right {
+      width: 640px;
+      height: 440px;
+      background: var(--bg-light);
+      border: 2px dashed var(--border);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .platform-right-label {
+      font-size: 17px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 8: WHY IT WORKS (4 boxes)             */
+    /* ═══════════════════════════════════════════ */
+    .why-it-works {
+      padding: 80px 120px 72px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 52px;
+      flex: 1;
+    }
+
+    .why-box {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .why-box-label {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .why-box-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .why-box-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .why-box-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 9: REAL CASE (dark, numbers dominant) */
+    /* ═══════════════════════════════════════════ */
+    .real-case {
+      padding: 80px 120px;
+      justify-content: center;
+      gap: 52px;
+    }
+
+    .real-case-context {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .real-case-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: -28px;
+    }
+
+    .real-case-numbers {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .real-case-arrow {
+      color: rgba(99, 102, 241, 0.6);
+      flex-shrink: 0;
+    }
+
+    .real-case-number {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .real-case-val {
+      font-size: 110px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+
+    .real-case-val.accent {
+      color: var(--accent);
+    }
+
+    .real-case-val-label {
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 400;
+    }
+
+    .real-case-period {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: -4px;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 10: TIMELINE                          */
+    /* ═══════════════════════════════════════════ */
+    .timeline-slide {
+      padding: 80px 120px 72px;
+    }
+
+    .timeline-body {
+      display: flex;
+      gap: 0;
+      margin-top: 52px;
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .timeline-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .timeline-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 40px;
+      right: 0;
+      width: 1px;
+      height: 80px;
+      background: var(--border);
+    }
+
+    .timeline-connector {
+      display: flex;
+      align-items: center;
+      margin-bottom: 36px;
+      padding-right: 40px;
+    }
+
+    .timeline-step:last-child .timeline-connector {
+      padding-right: 0;
+    }
+
+    .timeline-dot {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .timeline-step.destination .timeline-dot {
+      background: var(--accent);
+      color: #fff;
+      width: 90px;
+      height: 90px;
+      font-size: 32px;
+    }
+
+    .timeline-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin: 0 16px;
+      margin-top: -2px;
+      align-self: center;
+    }
+
+    .timeline-step:last-child .timeline-line {
+      display: none;
+    }
+
+    .timeline-content {
+      padding-right: 40px;
+    }
+
+    .timeline-step:last-child .timeline-content {
+      padding-right: 0;
+    }
+
+    .timeline-step-label {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .timeline-step-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .timeline-step.destination .timeline-step-title {
+      color: var(--accent);
+      font-size: 30px;
+    }
+
+    .timeline-step-sub {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    .timeline-step.destination .timeline-step-sub {
+      color: var(--text-secondary);
+      font-size: 20px;
+    }
+
+    .timeline-duration {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-top: 14px;
+    }
+
+    .timeline-step.destination .timeline-duration {
+      background: var(--accent);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="key-hint">Navegar: <kbd>&larr;</kbd> <kbd>&rarr;</kbd> ou clique nas setas</div>
+
+  <div class="deck">
+
+    <!-- ═══════════ SLIDE 0: CAPA ═══════════ -->
+    <div class="slide slide-dark cover active" data-slide="0">
+      <div class="cover-content">
+        <img src="assets/Arko Negativo.svg" class="cover-logo" alt="Arko Network">
+        <h1 class="cover-title">A borderless payment network for global operations</h1>
+        <div class="cover-accent-bar"></div>
+        <p class="cover-meta">March 2026&ensp;·&ensp;Sales Deck - Travel</p>
+        <div class="cover-promise">Process. Settle. Scale.</div>
+      </div>
+      <div class="cover-grid">
+        <div class="cover-stat">
+          <div class="cover-stat-val">Fast</div>
+          <div class="cover-stat-label">Settlement</div>
+        </div>
+        <div class="cover-stat">
+          <div class="cover-stat-val">Multi-FX</div>
+          <div class="cover-stat-label">Currencies</div>
+        </div>
+        <div class="cover-stat">
+          <div class="cover-stat-val">LATAM</div>
+          <div class="cover-stat-label">Americas &amp; Europe</div>
+        </div>
+        <div class="cover-stat">
+          <div class="cover-stat-val">AI</div>
+          <div class="cover-stat-label">Optimized Costs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ SLIDE 1: LIDERANÇA ═══════════ -->
+    <div class="slide slide-light about" data-slide="1">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">About Us</div>
+        <h2 class="slide-title">Our Leadership</h2>
+      </div>
+      <div class="about-body">
+        <div class="about-left">
+          <p class="about-text">Founded in 2024 by cross-border payments executives with more than 20 years of
+            experience and a track record processing billions across LATAM, USA, Asia, and Europe.</p>
+          <p class="about-text"><strong>Arko is the network we designed to solve the complexity of moving money across
+              borders.</strong></p>
+        </div>
+        <div class="about-right">
+          <div class="founder-card">
+            <div class="founder-avatar">
+              <img src="assets/photos/FS.png" alt="Francisco Sofiati" class="founder-photo">
+            </div>
+            <div class="founder-info">
+              <div class="founder-title">Francisco Sofiati</div>
+              <div class="founder-role">CEO</div>
+              <div class="founder-bio">10+ yrs in payments & FX. ex-CFO and Finance Director.</div>
+            </div>
+          </div>
+          <div class="founder-card">
+            <div class="founder-avatar">
+              <img src="assets/photos/KA.png" alt="Kassim Andraus" class="founder-photo">
+            </div>
+            <div class="founder-info">
+              <div class="founder-title">Kassim Andraus</div>
+              <div class="founder-role">COO</div>
+              <div class="founder-bio">10+ yrs as executive in tech ventures, ex-COO and CFO.</div>
+            </div>
+          </div>
+          <div class="founder-card">
+            <div class="founder-avatar">
+              <img src="assets/photos/VC.png" alt="Victor Curi" class="founder-photo">
+            </div>
+            <div class="founder-info">
+              <div class="founder-title">Victor Curi</div>
+              <div class="founder-role">CCO</div>
+              <div class="founder-bio">7+ yrs in compliance & risk in payments. ex-GRC lead.</div>
+            </div>
+          </div>
+          <div class="founder-card">
+            <div class="founder-avatar">
+              <img src="assets/photos/WR.png" alt="Wagner Ruiz" class="founder-photo">
+            </div>
+            <div class="founder-info">
+              <div class="founder-title">Wagner Ruiz</div>
+              <div class="founder-role">Board Member</div>
+              <div class="founder-bio">20+ yrs in payments industry, Co-founder of EBANX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 2: NÚMEROS-CHAVE ═══════════ -->
+    <div class="slide slide-gray numbers" data-slide="2">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Company at a Glance</div>
+        <h2 class="slide-title">Key Numbers</h2>
+      </div>
+      <div class="numbers-grid">
+        <div class="number-card">
+          <div class="icon-circle light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <div class="number-val">31</div>
+          <div class="number-label">Markets Served</div>
+          <div class="number-sub">Active markets</div>
+        </div>
+        <div class="number-card">
+          <div class="icon-circle light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <div class="number-val">+200M</div>
+          <div class="number-label">Transaction Volume</div>
+          <div class="number-sub">BRL processed across operations</div>
+        </div>
+        <div class="number-card">
+          <div class="icon-circle light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div class="number-val">+5</div>
+          <div class="number-label">Licenses</div>
+          <div class="number-sub">Active &amp; in-process licenses</div>
+        </div>
+      </div>
+      <div class="bottom-rows">
+        <div class="geo-row">
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg></div>
+            <div class="geo-name">United States</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg></div>
+            <div class="geo-name">Brazil</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg></div>
+            <div class="geo-name">Latin America</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg></div>
+            <div class="geo-name">Europe</div>
+          </div>
+        </div>
+        <div></div>
+        <div class="geo-row">
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg></div>
+            <div class="geo-name">FinCEN &amp; MSB License</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg></div>
+            <div class="geo-name">US MTL 3+ License</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg></div>
+            <div class="geo-name">Swiss License</div>
+          </div>
+          <div class="geo-item">
+            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg></div>
+            <div class="geo-name">VASP Brasil</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 3: HOOK ═══════════ -->
+    <div class="slide slide-dark hook" data-slide="3">
+      <img src="assets/Arko Negativo.svg" class="slide-logo" alt="Arko Network">
+      <div class="hook-content">
+        <p class="hook-main">Pagamentos internacionais deveriam ser simples como um Pix.</p>
+        <p class="hook-sub">Sem taxas, instantâneo e sem complicações.</p>
+      </div>
+    </div>
+    ß
+    <!-- ═══════════ SLIDE 4: NOVA ARQUITETURA (intro) ═══════════ -->
+    <div class="slide slide-dark positioning" data-slide="4">
+      <img src="assets/Arko Negativo.svg" class="slide-logo" alt="Arko Network">
+      <div class="positioning-statement">
+        <p class="positioning-main">Uma infraestrutura que reduz custos, centraliza pagamentos e transforma eficiência
+          em margem.</p>
+        <p class="positioning-sub">A Arko conecta sua operação a uma conta global única, eliminando a burocracia
+          tributária, o custo de câmbio e a complexidade de múltiplos fornecedores — tudo com a simplicidade do Pix.</p>
+      </div>
+      <div class="promise-box">
+        <div class="promise-text">Process. Settle. Scale.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════ SLIDE 5: ONDE A OPERAÇÃO PERDE VALOR ═══════════ -->
+    <div class="slide slide-gray pain" data-slide="5">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">O Problema</div>
+        <h2 class="slide-title">Onde a Operação Perde Valor</h2>
+      </div>
+      <div class="pain-body">
+        <div class="pain-left">
+          <div class="pain-bullet">
+            <div class="pain-bullet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <p class="pain-bullet-text">Margem pressionada por ineficiência tributária nos pagamentos internacionais</p>
+          </div>
+          <div class="pain-bullet">
+            <div class="pain-bullet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <p class="pain-bullet-text">Custo variável mais alto ao cliente com impacto direto em conversão</p>
+          </div>
+          <div class="pain-bullet">
+            <div class="pain-bullet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <p class="pain-bullet-text">Burocracia operacional e custo de câmbio adicionando atrito em cada pagamento
+            </p>
+          </div>
+          <div class="pain-bullet">
+            <div class="pain-bullet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <p class="pain-bullet-text">Complexidade crescente com múltiplas contas internacionais e fornecedores
+              fragmentados</p>
+          </div>
+        </div>
+        <div class="pain-right">
+          <div class="pain-number-card">
+            <div class="pain-number-val">3,5%</div>
+            <div class="pain-number-label">da margem comprometida por tributos em cada operação</div>
+          </div>
+          <div class="pain-number-card">
+            <div class="pain-number-val">62%</div>
+            <div class="pain-number-label">dos clientes levantam objeções de custo variável</div>
+          </div>
+          <div class="pain-number-card">
+            <div class="pain-number-val">30%</div>
+            <div class="pain-number-label">de overhead na gestão operacional de pagamentos</div>
+          </div>
+        </div>
+      </div>
+      <div class="pain-footer">
+        <p class="pain-footer-text">Para cada <strong>R$ 10 milhões</strong> pagos no exterior, até <strong>R$ 350
+            mil</strong> deixam de se tornar margem adicional.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════ SLIDE 6: A NOVA ARQUITETURA FINANCEIRA ═══════════ -->
+    <div class="slide slide-light promised-land" data-slide="6">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">A Solução</div>
+        <h2 class="slide-title">A Nova Arquitetura Financeira</h2>
+      </div>
+      <div class="promised-land-body">
+        <div class="promised-land-left">
+          <p class="promised-land-statement">Pagamentos internacionais podem, de fato, ser simples como o Pix.</p>
+          <p class="promised-land-sub">Um Pix + uma conta global = menos complexidade, menos custo e mais margem.</p>
+          <p class="promised-land-sub" style="color: var(--text-muted); font-size: 19px; margin-top: -8px;">Sua operação
+            conectada a uma única infraestrutura global — sem bancos intermediários, sem múltiplos fornecedores, sem
+            fricção tributária.</p>
+        </div>
+        <div class="promised-land-right">
+          <svg viewBox="0 0 64 64" fill="none" width="56" height="56">
+            <rect width="64" height="64" rx="16" fill="rgba(99,102,241,0.08)" />
+            <path d="M20 32h24M36 26l6 6-6 6" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span class="promised-land-right-label">Diagrama de fluxo — a ser inserido</span>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 7: UMA PLATAFORMA ÚNICA ═══════════ -->
+    <div class="slide slide-light platform" data-slide="7">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Plataforma</div>
+        <h2 class="slide-title">Uma Plataforma Única</h2>
+      </div>
+      <div class="platform-body">
+        <div class="platform-left">
+          <div class="platform-benefit">
+            <div class="platform-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <p class="platform-benefit-text">Centraliza toda a operação em uma única conta global multi-moeda</p>
+          </div>
+          <div class="platform-benefit">
+            <div class="platform-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <p class="platform-benefit-text">Reduz tributos, custo de câmbio e fricção operacional em cada pagamento</p>
+          </div>
+          <div class="platform-benefit">
+            <div class="platform-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+            <p class="platform-benefit-text">Aumenta controle, previsibilidade e eficiência na gestão financeira</p>
+          </div>
+          <div class="platform-closing">
+            <p class="platform-closing-text">Mais simplicidade para operar. Mais margem para escalar.</p>
+          </div>
+        </div>
+        <div class="platform-right">
+          <svg viewBox="0 0 64 64" fill="none" width="56" height="56">
+            <rect width="64" height="64" rx="16" fill="rgba(99,102,241,0.08)" />
+            <rect x="14" y="14" width="36" height="28" rx="4" stroke="#6366F1" stroke-width="2" />
+            <path d="M20 46h24" stroke="#6366F1" stroke-width="2" stroke-linecap="round" />
+            <path d="M26 42v4M38 42v4" stroke="#6366F1" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span class="platform-right-label">Screenshot da plataforma — a ser inserido</span>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 8: POR QUE ESSE MODELO FUNCIONA ═══════════ -->
+    <div class="slide slide-gray why-it-works" data-slide="8">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Proposta de Valor</div>
+        <h2 class="slide-title">Por que Esse Modelo Funciona</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-box">
+          <div class="why-box-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <div class="why-box-label">Resultado</div>
+          <div class="why-box-main">Gere até 3,5% de lucro adicional por operação.</div>
+        </div>
+        <div class="why-box">
+          <div class="why-box-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div class="why-box-label">Certeza</div>
+          <div class="why-box-main">Uma estrutura desenhada para servir sua operação.</div>
+        </div>
+        <div class="why-box">
+          <div class="why-box-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <div class="why-box-label">Esforço</div>
+          <div class="why-box-main">Baixa complexidade de implementação.</div>
+        </div>
+        <div class="why-box">
+          <div class="why-box-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div class="why-box-label">Tempo</div>
+          <div class="why-box-main">Go-live em até 4 dias.</div>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 9: UM CASO REAL ═══════════ -->
+    <div class="slide slide-dark real-case" data-slide="9">
+      <img src="assets/Arko Negativo.svg" class="slide-logo" alt="Arko Network">
+      <div class="real-case-context">Caso Real</div>
+      <div class="real-case-title">Operadora de passagens aéreas focada em classe executiva</div>
+      <div class="real-case-numbers">
+        <div class="real-case-number">
+          <div class="real-case-val">R$ 30M+</div>
+          <div class="real-case-val-label">por mês em pagamentos internacionais</div>
+        </div>
+        <div class="real-case-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="64" height="64">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </div>
+        <div class="real-case-number">
+          <div class="real-case-val accent">R$ 4M+</div>
+          <div class="real-case-val-label">de margem operacional adicional</div>
+          <div class="real-case-period">em 6 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ SLIDE 10: CRONOGRAMA ═══════════ -->
+    <div class="slide slide-light timeline-slide" data-slide="10">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Implementação</div>
+        <h2 class="slide-title">Go-live em até 4 dias</h2>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-step">
+          <div class="timeline-connector">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step-label">Passo 1</div>
+            <div class="timeline-step-title">Contrato e KYB</div>
+            <div class="timeline-step-sub">Assinatura e verificação de identidade corporativa</div>
+            <div class="timeline-duration">2 dias</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-connector">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step-label">Passo 2</div>
+            <div class="timeline-step-title">Onboarding e Treinamento</div>
+            <div class="timeline-step-sub">Configuração da conta e capacitação do time</div>
+            <div class="timeline-duration">1 dia</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-connector">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step-label">Passo 3</div>
+            <div class="timeline-step-title">Cadastro de Fornecedores</div>
+            <div class="timeline-step-sub">Registro dos beneficiários e validação dos destinos de pagamento</div>
+            <div class="timeline-duration">1 dia</div>
+          </div>
+        </div>
+        <div class="timeline-step destination">
+          <div class="timeline-connector">
+            <div class="timeline-dot">✓</div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step-label">Destino</div>
+            <div class="timeline-step-title">Go-live</div>
+            <div class="timeline-step-sub">Operação ativa, pagando fornecedores com eficiência e margem</div>
+            <div class="timeline-duration">Dia 4</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 11: CTA ═══════════ -->
+    <div class="slide slide-light contact" data-slide="11">
+      <div class="contact-body">
+        <div class="contact-left">
+          <img src="assets/Arko Positivo.svg" style="width:220px;margin-bottom:18px;display:block" alt="Arko Network">
+          <div class="contact-cta-text">Schedule a conversation with our team.</div>
+          <div class="contact-bar"></div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              </div>
+              <a href="https://arko.network/" target="_blank" class="contact-label contact-link">arko.network</a>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </div>
+              <a href="https://www.linkedin.com/company/arko-network/" target="_blank"
+                class="contact-label contact-link">arko-network</a>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <span class="contact-label">Florida - United States</span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-right">
+          <div class="contact-right-title">Let's Talk</div>
+          <div class="contact-right-sub">Ready to simplify your cross-border operations?</div>
+          <a href="#" class="contact-btn">
+            Get in Touch
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="contact-footer">Process. Settle. Scale.</div>
+    </div>
+
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="nav">
+    <button id="prev" aria-label="Slide anterior">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+    <div class="nav-dots" id="dots"></div>
+    <span class="nav-counter" id="counter"></span>
+    <button id="next" aria-label="Próximo slide">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.getElementById('dots');
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let current = 0;
+
+    const slideNames = [
+      'Capa',
+      'Liderança',
+      'Números-Chave',
+      'Pagamentos Simplificados',
+      'Uma Nova Arquitetura Financeira',
+      'Onde a Operação Perde Valor',
+      'A Nova Arquitetura Financeira',
+      'Uma Plataforma Única',
+      'Por que Esse Modelo Funciona',
+      'Um Caso Real',
+      'Cronograma',
+      'Contato'
+    ];
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('role', 'button');
+      d.setAttribute('aria-label', 'Ir para slide ' + (i + 1) + ': ' + (slideNames[i] || ''));
+      d.setAttribute('tabindex', '0');
+      d.onclick = () => goTo(i);
+      d.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); } };
+      dots.appendChild(d);
+    });
+
+    document.querySelectorAll('.slide svg').forEach(svg => svg.setAttribute('aria-hidden', 'true'));
+
+    function goTo(n) {
+      if (n < 0 || n >= slides.length) return;
+      slides[current].classList.remove('active');
+      dots.children[current].classList.remove('active');
+      current = n;
+      slides[current].classList.add('active');
+      dots.children[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    prevBtn.onclick = () => goTo(current - 1);
+    nextBtn.onclick = () => goTo(current + 1);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    });
+
+    goTo(0);
+
+    function scaleDeck() {
+      const deck = document.querySelector('.deck');
+      const sw = window.innerWidth / 1920;
+      const sh = window.innerHeight / 1080;
+      const scale = Math.min(sw, sh);
+      deck.style.transform = 'scale(' + scale + ')';
+    }
+    scaleDeck();
+    window.addEventListener('resize', scaleDeck);
+  </script>
+</body>
+
+</html>
