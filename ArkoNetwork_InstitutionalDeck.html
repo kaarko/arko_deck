@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arko Network — Institutional Deck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:wght@400;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════ */
@@ -25,6 +25,9 @@
       --accent-hover: #4F46E5;
       --accent-light: rgba(99, 102, 241, 0.08);
       --accent-glow: rgba(99, 102, 241, 0.15);
+      --accent-r: 99;
+      --accent-g: 102;
+      --accent-b: 241;
       --dark: #0F0D2E;
       --dark2: #1A1745;
       --dark3: #252254;
@@ -39,7 +42,102 @@
       --warning: #F59E0B;
       --slide-w: 1920px;
       --slide-h: 1080px;
+      --radius-card: 16px;
+      --radius-card-lg: 20px;
+      --radius-chip: 12px;
+      --density-pad: 1;
+      --density-gap: 1;
+      --headline-weight: 700;
+      --label-tracking: 4px;
     }
+
+    /* Editorial mode: serif headlines, harder edges, more contrast */
+    body.mode-editorial {
+      --radius-card: 4px;
+      --radius-card-lg: 6px;
+      --radius-chip: 4px;
+      --headline-weight: 800;
+      --label-tracking: 6px;
+    }
+    body.mode-editorial .slide-title,
+    body.mode-editorial .cover-title,
+    body.mode-editorial .positioning-main,
+    body.mode-editorial .promise-text,
+    body.mode-editorial .number-val,
+    body.mode-editorial .partner-stat-val {
+      font-family: 'Fraunces', 'Times New Roman', Georgia, serif;
+      letter-spacing: -0.02em;
+    }
+    body.mode-editorial .section-label,
+    body.mode-editorial .coverage-col-label,
+    body.mode-editorial .cover-tagline {
+      font-weight: 800;
+    }
+
+    /* Mono mode: monochrome, no color accent, technical feel */
+    body.mode-mono {
+      --accent: #1E1B3A;
+      --accent-hover: #0F0D2E;
+      --accent-light: rgba(30, 27, 58, 0.06);
+      --accent-glow: rgba(30, 27, 58, 0.12);
+      --accent-r: 30;
+      --accent-g: 27;
+      --accent-b: 58;
+      --radius-card: 2px;
+      --radius-card-lg: 2px;
+      --radius-chip: 2px;
+      --label-tracking: 8px;
+    }
+    body.mode-mono .slide-dark {
+      background: #0a0a0a !important;
+      background-image: none !important;
+    }
+    body.mode-mono .promise-box {
+      background: #1E1B3A;
+    }
+
+    /* Density: compact */
+    body.density-compact {
+      --density-pad: 0.72;
+      --density-gap: 0.78;
+    }
+    body.density-compact .slide {
+      padding: calc(80px * var(--density-pad)) calc(120px * var(--density-pad)) calc(72px * var(--density-pad));
+    }
+    body.density-compact .slide-title {
+      font-size: 38px;
+    }
+    body.density-compact .partner-card,
+    body.density-compact .product-card,
+    body.density-compact .method-card,
+    body.density-compact .number-card,
+    body.density-compact .founder-card,
+    body.density-compact .license-card,
+    body.density-compact .diff-card {
+      padding: calc(32px * var(--density-pad));
+    }
+    body.density-compact .ecosystem-grid,
+    body.density-compact .products-grid,
+    body.density-compact .numbers-grid,
+    body.density-compact .coverage-grid,
+    body.density-compact .rails-grid,
+    body.density-compact .methods-grid {
+      gap: calc(28px * var(--density-gap));
+    }
+
+    /* Apply radius vars to all card surfaces */
+    .partner-card { border-radius: var(--radius-card-lg); }
+    .product-card,
+    .method-card,
+    .number-card,
+    .founder-card,
+    .license-card,
+    .diff-card,
+    .rail-chip { border-radius: var(--radius-card); }
+    .rail-chip { border-radius: var(--radius-chip); }
+    .section-label,
+    .coverage-col-label { letter-spacing: var(--label-tracking); }
+    .slide-title { font-weight: var(--headline-weight); }
 
     html {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -542,7 +640,17 @@
       font-size: 17px;
       color: var(--text-secondary);
       line-height: 1.5;
+      margin-bottom: 10px;
       margin-top: 10px;
+    }
+
+    .founder-former-logo {
+      height: 22px;
+      max-width: 130px;
+      object-fit: contain;
+      object-position: left center;
+      opacity: 0.55;
+      display: block;
     }
 
     .about-bottom-bar {
@@ -553,74 +661,346 @@
     }
 
     /* ═══════════════════════════════════════════ */
-    /* SLIDE 3: KEY NUMBERS                        */
+    /* SLIDE 3: ECOSYSTEM                          */
+    /* ═══════════════════════════════════════════ */
+    .ecosystem {
+      padding: 70px 100px 60px;
+    }
+
+    .ecosystem-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .ecosystem .slide-title {
+      font-size: 44px;
+      max-width: 1280px;
+    }
+
+    .ecosystem-intro {
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 1280px;
+      margin-top: 18px;
+    }
+
+    .ecosystem-intro strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .partner-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .partner-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.10);
+    }
+
+    .partner-logo-wrap {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .partner-logo-wrap img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .partner-logo-wrap.ebanx img { height: 40px; max-height: 40px; width: auto; }
+    .partner-logo-wrap.remessa img { height: 43px; max-height: 43px; width: auto; }
+    .partner-logo-wrap.topazio img { height: 110px; max-height: 110px; width: auto; margin: -28px 0 -28px -22px; }
+
+    .partner-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 22px;
+    }
+
+    .partner-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .partner-stat-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .partner-stat-lbl {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+    }
+
+    .partner-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 4: KEY NUMBERS                        */
     /* ═══════════════════════════════════════════ */
     .numbers {
       padding: 80px 120px 72px;
     }
 
-    .numbers-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 36px;
-      margin-top: 52px;
+    .numbers-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      gap: 56px;
+      margin-top: 32px;
+      padding-bottom: 40px;
     }
 
-    .number-card {
+    .numbers-hero {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .number-hero-card {
       background: var(--bg-white);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 48px 40px;
-      text-align: center;
+      padding: 56px 60px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 36px;
+      min-height: 320px;
     }
 
-    .number-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--accent);
+    .number-hero-card.dark {
+      background: var(--dark);
+      border-color: rgba(99, 102, 241, 0.25);
+      background-image:
+        radial-gradient(ellipse 80% 80% at 100% 0%, rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18), transparent 60%);
     }
 
-    .number-card .icon-circle {
-      margin: 0 auto 28px;
+    .number-hero-card.dark .nh-label,
+    .number-hero-card.dark .nh-sub {
+      color: rgba(255, 255, 255, 0.55);
     }
 
-    .number-val {
-      font-size: 72px;
+    .number-hero-card.dark .nh-val {
+      color: #fff;
+    }
+
+    .number-hero-card.dark .nh-currency {
+      color: var(--accent);
+    }
+
+    .nh-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nh-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .nh-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .number-hero-card.dark .nh-icon {
+      background: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18);
+    }
+
+    .nh-icon svg { width: 22px; height: 22px; }
+
+    .nh-val {
+      font-size: 108px;
       font-weight: 800;
       color: var(--accent);
-      line-height: 1;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
     }
 
-    .number-label {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .number-sub {
-      font-size: 16px;
+    .nh-currency {
+      font-size: 34px;
+      font-weight: 700;
       color: var(--text-muted);
-      line-height: 1.4;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
-    .bottom-rows {
+    .nh-sub {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 380px;
+      margin-top: 12px;
+    }
+
+    .licenses-block {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .licenses-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .licenses-header-left .lh-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .licenses-header-left .lh-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .lh-count {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .lh-count strong {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .licenses-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 36px;
-      margin-top: 36px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
 
-    .geo-row {
-      border-top: 1px solid var(--border);
+    .license-chip {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .license-chip:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .license-chip-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .license-flag {
+      width: 30px;
+      height: 22px;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+
+    .license-flag svg { width: 100%; height: 100%; display: block; }
+
+    .license-status {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+      white-space: nowrap;
+    }
+
+    .license-status.in-process {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--warning);
+    }
+
+    .license-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .license-region {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
 
     /* ═══════════════════════════════════════════ */
@@ -726,7 +1106,201 @@
     }
 
     /* ═══════════════════════════════════════════ */
-    /* SLIDE 6: MARKETS                            */
+    /* SLIDE 7: COVERAGE (METHODS & RAILS)         */
+    /* ═══════════════════════════════════════════ */
+    .coverage {
+      padding: 80px 120px 72px;
+    }
+
+    .coverage .slide-title {
+      font-size: 44px;
+      max-width: 1080px;
+    }
+
+    .coverage-grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 56px;
+      margin-top: 36px;
+      flex: 1;
+      min-height: 0;
+      padding-bottom: 32px;
+    }
+
+    .coverage-section {
+      display: block;
+    }
+
+    .coverage-section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .coverage-section-head-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .coverage-section-head-right {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .coverage-section-head-right strong {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .coverage-col-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .coverage-col-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    /* Brazil collection methods */
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .method-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 26px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .method-card .icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+    }
+
+    .method-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .method-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* Global rails grid */
+    .rails-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+
+    .rail-chip {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      transition: border-color 0.15s ease;
+    }
+
+    .rail-chip:hover {
+      border-color: var(--accent);
+    }
+
+    .rail-flag {
+      width: 28px;
+      height: 20px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      background: #e5e7eb;
+      overflow: hidden;
+      display: block;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);
+    }
+
+    .rail-flag svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .rail-code {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .rail-name {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .rail-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .rail-name {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+    }
+
+    .rails-footnote {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rails-footnote-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════ */
+    /* SLIDE 8: MARKETS                            */
     /* ═══════════════════════════════════════════ */
     .markets {
       padding: 80px 120px 72px;
@@ -1343,6 +1917,7 @@
               <div class="founder-title">Francisco Sofiati</div>
               <div class="founder-role">CEO</div>
               <div class="founder-bio">10+ yrs in payments & FX. ex-CFO and Finance Director.</div>
+              <img src="assets/logos/Blueebanx.svg" alt="ex-EBANX" class="founder-former-logo">
             </div>
           </div>
           <div class="founder-card">
@@ -1353,6 +1928,7 @@
               <div class="founder-title">Kassim Andraus</div>
               <div class="founder-role">COO</div>
               <div class="founder-bio">10+ yrs as executive in tech ventures, ex-COO and CFO.</div>
+              <img src="assets/logos/intelia_black_logo_Prancheta 1.png" alt="ex-Intelia" class="founder-former-logo">
             </div>
           </div>
           <div class="founder-card">
@@ -1363,6 +1939,7 @@
               <div class="founder-title">Victor Curi</div>
               <div class="founder-role">CCO</div>
               <div class="founder-bio">7+ yrs in compliance & risk in payments. ex-GRC lead.</div>
+              <img src="assets/logos/Blueebanx.svg" alt="ex-EBANX" class="founder-former-logo">
             </div>
           </div>
           <div class="founder-card">
@@ -1373,6 +1950,7 @@
               <div class="founder-title">Wagner Ruiz</div>
               <div class="founder-role">Board Member</div>
               <div class="founder-bio">20+ yrs in payments industry, Co-founder of EBANX</div>
+              <img src="assets/logos/Blueebanx.svg" alt="ex-EBANX" class="founder-former-logo">
             </div>
           </div>
         </div>
@@ -1380,126 +1958,190 @@
       <div class="bottom-bar"></div>
     </div>
 
-    <!-- ═══════════ SLIDE 3: KEY NUMBERS ═══════════ -->
-    <div class="slide slide-gray numbers" data-slide="2">
+    <!-- ═══════════ SLIDE 3: ECOSYSTEM ═══════════ -->
+    <div class="slide slide-light ecosystem" data-slide="2">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Our Ecosystem</div>
+        <h2 class="slide-title">Built alongside the leaders of cross-border payments</h2>
+        <p class="ecosystem-intro">Arko is part of a large payment ecosystem, <strong>the group has processed more than USD 100 billion annually</strong>.</p>
+      </div>
+      <div class="ecosystem-body">
+      <div class="ecosystem-grid">
+
+        <div class="partner-card">
+          <div class="partner-logo-wrap ebanx">
+            <img src="assets/partners/ebanx.jpg" alt="EBANX">
+          </div>
+          <div class="partner-divider"></div>
+          <div class="partner-stats">
+            <div>
+              <div class="partner-stat-val">USD 20B</div>
+              <div class="partner-stat-lbl">Processed annually</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">29</div>
+              <div class="partner-stat-lbl">Countries</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">700+</div>
+              <div class="partner-stat-lbl">Employees</div>
+            </div>
+          </div>
+          <p class="partner-desc">Founded in Brazil in 2012, EBANX is a cross-border payments company operating in 29 countries and processing more than USD 18 billion per year for global merchants like Amazon, Google, Uber, Spotify, and Sony. Backed by Advent International and FTV Capital.</p>
+        
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-logo-wrap remessa">
+            <img src="assets/partners/remessa.svg" alt="Remessa Online">
+          </div>
+          <div class="partner-divider"></div>
+          <div class="partner-stats">
+            <div>
+              <div class="partner-stat-val">USD 22B</div>
+              <div class="partner-stat-lbl">Processed annually</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">USD 230M</div>
+              <div class="partner-stat-lbl">Acquisition, 2021</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">260+</div>
+              <div class="partner-stat-lbl">Employees</div>
+            </div>
+          </div>
+          <p class="partner-desc">A leading money remittance company operating in Brazil, acquired by EBANX in 2021 for USD 230 million. Remessa Online currently processes more than USD 22 billion annually across consumer and SMB cross-border flows.</p>
+        
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-logo-wrap topazio">
+            <img src="assets/partners/topazio.png" alt="Banco Topázio">
+          </div>
+          <div class="partner-divider"></div>
+          <div class="partner-stats">
+            <div>
+              <div class="partner-stat-val">USD 60B</div>
+              <div class="partner-stat-lbl">FX processed annually</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">USD 450M</div>
+              <div class="partner-stat-lbl">Total assets</div>
+            </div>
+            <div>
+              <div class="partner-stat-val">250+</div>
+              <div class="partner-stat-lbl">Employees</div>
+            </div>
+          </div>
+          <p class="partner-desc">A full-service Brazilian bank offering credit, investment, payments, and foreign exchange (FX) services. With over USD 450 million in total assets, Banco Topázio currently processes more than USD 60 billion in FX transactions annually.</p>
+        
+        </div>
+
+      </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 4: KEY NUMBERS ═══════════ -->
+    <div class="slide slide-gray numbers" data-slide="3">
       <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
       <div>
         <div class="section-label">Company at a Glance</div>
         <h2 class="slide-title">Key Numbers</h2>
       </div>
-      <div class="numbers-grid">
-        <div class="number-card">
-          <div class="icon-circle light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
+      <div class="numbers-body">
+        <!-- HERO ROW: two big stat cards -->
+        <div class="numbers-hero">
+          <div class="number-hero-card">
+            <div class="nh-top">
+              <div class="nh-label">Transaction Volume</div>
+              <div class="nh-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="nh-val">+2.1B<span class="nh-currency">BRL</span></div>
+              <div class="nh-sub">Processed across LATAM, USA &amp; Europe operations.</div>
+            </div>
           </div>
-          <div class="number-val">31</div>
-          <div class="number-label">Markets Served</div>
-          <div class="number-sub">Active markets</div>
-        </div>
-        <div class="number-card">
-          <div class="icon-circle light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-            </svg>
-          </div>
-          <div class="number-val">+200M</div>
-          <div class="number-label">Transaction Volume</div>
-          <div class="number-sub">BRL processed across operations</div>
-        </div>
-        <div class="number-card">
-          <div class="icon-circle light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <div class="number-val">+5</div>
-          <div class="number-label">Licenses</div>
-          <div class="number-sub">Active &amp; in-process licenses</div>
-        </div>
-      </div>
-      <div class="bottom-rows">
-        <div class="geo-row">
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg></div>
-            <div class="geo-name">United States</div>
-          </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg></div>
-            <div class="geo-name">Brazil</div>
-          </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg></div>
-            <div class="geo-name">Latin America</div>
-          </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg></div>
-            <div class="geo-name">Europe</div>
+          <div class="number-hero-card">
+            <div class="nh-top">
+              <div class="nh-label">Regulatory Footprint</div>
+              <div class="nh-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="nh-val">+5<span class="nh-currency">Licenses</span></div>
+              <div class="nh-sub">Active and in-process across four jurisdictions.</div>
+            </div>
           </div>
         </div>
-        <div></div>
-        <div class="geo-row">
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg></div>
-            <div class="geo-name">FinCEN & MSB License</div>
+
+        <!-- LICENSES STRIP: detail under hero -->
+        <div class="licenses-block">
+          <div class="licenses-header">
+            <div class="licenses-header-left">
+              <div class="lh-label">Licenses</div>
+              <div class="lh-title">Operating jurisdictions</div>
+            </div>
+            <div class="lh-count"></div>
           </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg></div>
-            <div class="geo-name">US MTL 3+ License</div>
-          </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg></div>
-            <div class="geo-name">Swiss License</div>
-          </div>
-          <div class="geo-item">
-            <div class="geo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg></div>
-            <div class="geo-name">VASP Brazil</div>
+          <div class="licenses-grid">
+
+            <div class="license-chip">
+              <span class="license-flag">
+                <svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#bf0a30"/><rect y="3.08" width="60" height="3.08" fill="#fff"/><rect y="9.23" width="60" height="3.08" fill="#fff"/><rect y="15.38" width="60" height="3.08" fill="#fff"/><rect y="21.54" width="60" height="3.08" fill="#fff"/><rect y="27.69" width="60" height="3.08" fill="#fff"/><rect y="33.85" width="60" height="3.08" fill="#fff"/><rect width="24" height="21.54" fill="#002868"/></svg>
+              </span>
+              <div>
+                <div class="license-name">FinCEN &amp; MSB</div>
+                <div class="license-region">United States · Federal</div>
+              </div>
+            </div>
+
+            <div class="license-chip">
+              <span class="license-flag">
+                <svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#bf0a30"/><rect y="3.08" width="60" height="3.08" fill="#fff"/><rect y="9.23" width="60" height="3.08" fill="#fff"/><rect y="15.38" width="60" height="3.08" fill="#fff"/><rect y="21.54" width="60" height="3.08" fill="#fff"/><rect y="27.69" width="60" height="3.08" fill="#fff"/><rect y="33.85" width="60" height="3.08" fill="#fff"/><rect width="24" height="21.54" fill="#002868"/></svg>
+              </span>
+              <div>
+                <div class="license-name">US MTL 3+</div>
+                <div class="license-region">United States · State-level</div>
+              </div>
+            </div>
+
+            <div class="license-chip">
+              <span class="license-flag">
+                <svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#ff0000"/><rect x="22" y="6" width="16" height="28" fill="#fff"/><rect x="14" y="14" width="32" height="12" fill="#fff"/><rect x="26" y="6" width="8" height="28" fill="#ff0000"/><rect x="14" y="18" width="32" height="4" fill="#ff0000"/></svg>
+              </span>
+              <div>
+                <div class="license-name">Swiss License</div>
+                <div class="license-region">Switzerland · Financial</div>
+              </div>
+            </div>
+
+            <div class="license-chip">
+              <span class="license-flag">
+                <svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#009b3a"/><polygon points="30,5 53,20 30,35 7,20" fill="#fedf00"/><circle cx="30" cy="20" r="7" fill="#002776"/></svg>
+              </span>
+              <div>
+                <div class="license-name">VASP</div>
+                <div class="license-region">Brazil · Virtual Assets</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
       <div class="bottom-bar"></div>
     </div>
 
-    <!-- ═══════════ SLIDE 4: POSITIONING ═══════════ -->
-    <div class="slide slide-dark positioning" data-slide="3">
+    <!-- ═══════════ SLIDE 5: POSITIONING ═══════════ -->
+    <div class="slide slide-dark positioning" data-slide="4">
       <img src="assets/Arko Negativo.svg" class="slide-logo" alt="Arko Network">
       <div class="positioning-statement">
         <p class="positioning-main">Arko Network is cross-border payment infrastructure for mid-sized enterprises moving
@@ -1513,8 +2155,8 @@
       </div>
     </div>
 
-    <!-- ═══════════ SLIDE 5: PRODUCTS ═══════════ -->
-    <div class="slide slide-light products" data-slide="4">
+    <!-- ═══════════ SLIDE 6: PRODUCTS ═══════════ -->
+    <div class="slide slide-light products" data-slide="5">
       <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
       <div>
         <div class="section-label">Products</div>
@@ -1586,8 +2228,122 @@
       <div class="bottom-bar"></div>
     </div>
 
-    <!-- ═══════════ SLIDE 6: MARKETS ═══════════ -->
-    <div class="slide slide-light markets" data-slide="5">
+    <!-- ═══════════ SLIDE 7: COVERAGE (METHODS & RAILS) ═══════════ -->
+    <div class="slide slide-light coverage" data-slide="6">
+      <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
+      <div>
+        <div class="section-label">Coverage</div>
+        <h2 class="slide-title">Payment methods & global rails</h2>
+      </div>
+      <div class="coverage-grid">
+        <!-- TOP SECTION: Collecting in Brazil -->
+        <div class="coverage-section">
+          <div class="coverage-section-header">
+            <div class="coverage-section-head-left">
+              <div class="coverage-col-label">Collecting in Brazil</div>
+              <div class="coverage-col-title">Local methods, local conversion</div>
+            </div>
+            <div class="coverage-section-head-right">
+              <span>
+</span>
+            </div>
+          </div>
+          <div class="methods-grid">
+            <div class="method-card">
+              <div class="icon-circle accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                  <line x1="2" y1="8.5" x2="22" y2="15.5" />
+                  <line x1="22" y1="8.5" x2="2" y2="15.5" />
+                </svg>
+              </div>
+              <div>
+                <div class="method-name">Pix</div>
+                <div class="method-desc">Instant 24/7 settlement, BRL native</div>
+              </div>
+            </div>
+            <div class="method-card">
+              <div class="icon-circle accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="18" rx="2" />
+                  <line x1="2" y1="8" x2="22" y2="8" />
+                  <line x1="6" y1="14" x2="10" y2="14" />
+                  <line x1="6" y1="17" x2="14" y2="17" />
+                </svg>
+              </div>
+              <div>
+                <div class="method-name">Boleto</div>
+                <div class="method-desc">Bank slip, broad consumer reach</div>
+              </div>
+            </div>
+            <div class="method-card">
+              <div class="icon-circle accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                  <line x1="5" y1="15" x2="9" y2="15" />
+                </svg>
+              </div>
+              <div>
+                <div class="method-name">Credit Card</div>
+                <div class="method-desc">All major brands, installments</div>
+              </div>
+            </div>
+            <div class="method-card">
+              <div class="icon-circle accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                  <circle cx="6" cy="15" r="1.4" />
+                </svg>
+              </div>
+              <div>
+                <div class="method-name">Debit Card</div>
+                <div class="method-desc">Real-time authorization</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM SECTION: Global rails -->
+        <div class="coverage-section">
+          <div class="coverage-section-header">
+            <div class="coverage-section-head-left">
+              <div class="coverage-col-label">Global settlement rails</div>
+              <div class="coverage-col-title">14 currencies across 5 continents</div>
+            </div>
+            <div class="coverage-section-head-right">
+              <span><strong>+14</strong> currencies</span>
+              <span style="opacity:0.5">·</span>
+              <span><strong>5</strong> continents</span>
+            </div>
+          </div>
+          <div class="rails-grid">
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#bf0a30"/><rect y="3.08" width="60" height="3.08" fill="#fff"/><rect y="9.23" width="60" height="3.08" fill="#fff"/><rect y="15.38" width="60" height="3.08" fill="#fff"/><rect y="21.54" width="60" height="3.08" fill="#fff"/><rect y="27.69" width="60" height="3.08" fill="#fff"/><rect y="33.85" width="60" height="3.08" fill="#fff"/><rect width="24" height="21.54" fill="#002868"/></svg></span><div class="rail-text"><span class="rail-code">USD</span><span class="rail-name">US Dollar</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#003399"/><g fill="#FFCC00"><circle cx="30" cy="12" r="1.4"/><circle cx="36" cy="14" r="1.4"/><circle cx="39" cy="19" r="1.4"/><circle cx="36" cy="24" r="1.4"/><circle cx="30" cy="26" r="1.4"/><circle cx="24" cy="24" r="1.4"/><circle cx="21" cy="19" r="1.4"/><circle cx="24" cy="14" r="1.4"/></g></svg></span><div class="rail-text"><span class="rail-code">EUR</span><span class="rail-name">Euro</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#009b3a"/><polygon points="30,5 53,20 30,35 7,20" fill="#fedf00"/><circle cx="30" cy="20" r="7" fill="#002776"/></svg></span><div class="rail-text"><span class="rail-code">BRL</span><span class="rail-name">Brazilian Real</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="9" fill="#bc002d"/></svg></span><div class="rail-text"><span class="rail-code">JPY</span><span class="rail-name">Japanese Yen</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="3"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="10"/><path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="5"/></svg></span><div class="rail-text"><span class="rail-code">GBP</span><span class="rail-name">British Pound</span></div></div>
+
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#ee1c25"/><polygon points="12,8 13.5,12.5 18,12.5 14.3,15.5 15.7,20 12,17 8.3,20 9.7,15.5 6,12.5 10.5,12.5" fill="#ffff00"/><circle cx="22" cy="5" r="1" fill="#ffff00"/><circle cx="25" cy="8" r="1" fill="#ffff00"/><circle cx="25" cy="12" r="1" fill="#ffff00"/><circle cx="22" cy="15" r="1" fill="#ffff00"/></svg></span><div class="rail-text"><span class="rail-code">CNY</span><span class="rail-name">Chinese Yuan</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="40" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="1.5"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="5"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="2.5"/><rect x="30" width="30" height="40" fill="#012169"/><polygon points="40,10 41,12.5 43.5,12.5 41.5,14 42.5,16.5 40,15 37.5,16.5 38.5,14 36.5,12.5 39,12.5" fill="#fff"/><polygon points="50,18 51,20.5 53.5,20.5 51.5,22 52.5,24.5 50,23 47.5,24.5 48.5,22 46.5,20.5 49,20.5" fill="#fff"/><polygon points="45,28 46,30.5 48.5,30.5 46.5,32 47.5,34.5 45,33 42.5,34.5 43.5,32 41.5,30.5 44,30.5" fill="#fff"/></svg></span><div class="rail-text"><span class="rail-code">AUD</span><span class="rail-name">Australian Dollar</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="15" height="40" fill="#d52b1e"/><rect x="15" width="30" height="40" fill="#fff"/><rect x="45" width="15" height="40" fill="#d52b1e"/><polygon points="30,12 31,17 36,17 32,20 33.5,25 30,22 26.5,25 28,20 24,17 29,17" fill="#d52b1e"/></svg></span><div class="rail-text"><span class="rail-code">CAD</span><span class="rail-name">Canadian Dollar</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="20" fill="#ed2939"/><rect y="20" width="60" height="20" fill="#fff"/><circle cx="19" cy="15" r="6" fill="#fff"/><circle cx="21" cy="15" r="6" fill="#ed2939"/></svg></span><div class="rail-text"><span class="rail-code">SGD</span><span class="rail-name">Singapore Dollar</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="40" fill="#006847"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#ce1126"/></svg></span><div class="rail-text"><span class="rail-code">MXN</span><span class="rail-name">Mexican Peso</span></div></div>
+
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="13.33" fill="#74acdf"/><rect y="13.33" width="60" height="13.33" fill="#fff"/><rect y="26.67" width="60" height="13.33" fill="#74acdf"/><circle cx="30" cy="20" r="3" fill="#fcbf49"/></svg></span><div class="rail-text"><span class="rail-code">ARS</span><span class="rail-name">Argentine Peso</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="10" fill="#00732f"/><rect y="10" width="60" height="10" fill="#fff"/><rect y="20" width="60" height="10" fill="#000"/><rect y="30" width="60" height="10" fill="#ce1126"/><rect width="15" height="40" fill="#ce1126"/></svg></span><div class="rail-text"><span class="rail-code">AED</span><span class="rail-name">UAE Dirham</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#006c35"/><text x="30" y="19" text-anchor="middle" fill="#fff" font-size="5" font-family="serif" font-style="italic">لا إله إلا الله</text><path d="M14 24h32v2h-32z" fill="#fff"/></svg></span><div class="rail-text"><span class="rail-code">SAR</span><span class="rail-name">Saudi Riyal</span></div></div>
+            <div class="rail-chip"><span class="rail-flag"><svg viewBox="0 0 60 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="13.33" fill="#ff9933"/><rect y="13.33" width="60" height="13.33" fill="#fff"/><rect y="26.67" width="60" height="13.33" fill="#138808"/><circle cx="30" cy="20" r="3.5" fill="none" stroke="#000080" stroke-width="0.6"/></svg></span><div class="rail-text"><span class="rail-code">INR</span><span class="rail-name">Indian Rupee</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <!-- ═══════════ SLIDE 8: MARKETS ═══════════ -->
+    <div class="slide slide-light markets" data-slide="7">
       <img src="assets/Arko Positivo.svg" class="slide-logo" alt="Arko Network">
       <div>
         <div class="section-label">Use cases</div>
@@ -1685,8 +2441,8 @@
       <div class="bottom-bar"></div>
     </div>
 
-    <!-- ═══════════ SLIDE 7: FLOW OF FUNDS ═══════════ -->
-    <div class="slide slide-dark flow" data-slide="6">
+    <!-- ═══════════ SLIDE 9: FLOW OF FUNDS ═══════════ -->
+    <div class="slide slide-dark flow" data-slide="8">
       <img src="assets/Arko Negativo.svg" class="slide-logo" alt="Arko Network">
       <div>
         <div class="section-label">Flow of Funds</div>
@@ -1842,8 +2598,8 @@
       <div class="bottom-bar"></div>
     </div>
 
-    <!-- ═══════════ SLIDE 8: CONTACT ═══════════ -->
-    <div class="slide slide-light contact" data-slide="7">
+    <!-- ═══════════ SLIDE 10: CONTACT ═══════════ -->
+    <div class="slide slide-light contact" data-slide="9">
       <div class="contact-body">
         <div class="contact-left">
           <img src="assets/Arko Positivo.svg" style="width:220px;margin-bottom:18px;display:block" alt="Arko Network">
@@ -1876,7 +2632,7 @@
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg></div>
-              <span class="contact-label">Florida - United States</span>
+              <span class="contact-label">USA | Brazil | Switzerland</span>
             </div>
           </div>
         </div>
@@ -1924,7 +2680,7 @@
     const nextBtn = document.getElementById('next');
     let current = 0;
 
-    const slideNames = ['Cover', 'About Us', 'Key Numbers', 'Positioning', 'Products', 'Markets', 'Flow of Funds', 'Differentiators', 'Compliance', 'Contact'];
+    const slideNames = ['Cover', 'About Us', 'Ecosystem', 'Key Numbers', 'Positioning', 'Products', 'Coverage', 'Markets', 'Flow of Funds', 'Contact'];
     slides.forEach((_, i) => {
       const d = document.createElement('div');
       d.className = 'nav-dot' + (i === 0 ? ' active' : '');
@@ -1971,6 +2727,91 @@
     }
     scaleDeck();
     window.addEventListener('resize', scaleDeck);
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+    const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "#6366F1",
+      "mode": "standard",
+      "density": "comfortable"
+    }/*EDITMODE-END*/;
+
+    function hexToRgb(hex) {
+      const m = hex.replace('#', '').match(/.{2}/g);
+      if (!m) return [99, 102, 241];
+      return m.map(h => parseInt(h, 16));
+    }
+
+    function applyTweaks(t) {
+      const root = document.documentElement;
+      const body = document.body;
+      // Accent
+      if (t.mode !== 'mono') {
+        const [r, g, b] = hexToRgb(t.accent);
+        root.style.setProperty('--accent', t.accent);
+        root.style.setProperty('--accent-r', r);
+        root.style.setProperty('--accent-g', g);
+        root.style.setProperty('--accent-b', b);
+        root.style.setProperty('--accent-light', `rgba(${r}, ${g}, ${b}, 0.08)`);
+        root.style.setProperty('--accent-glow', `rgba(${r}, ${g}, ${b}, 0.15)`);
+      } else {
+        root.style.removeProperty('--accent');
+        root.style.removeProperty('--accent-light');
+        root.style.removeProperty('--accent-glow');
+      }
+      // Mode
+      body.classList.remove('mode-standard', 'mode-editorial', 'mode-mono');
+      body.classList.add('mode-' + t.mode);
+      // Density
+      body.classList.remove('density-comfortable', 'density-compact');
+      body.classList.add('density-' + t.density);
+    }
+
+    function ArkoTweaks() {
+      const [tweaks, setTweak] = useTweaks(TWEAKS_DEFAULTS);
+      React.useEffect(() => { applyTweaks(tweaks); }, [tweaks]);
+      return (
+        <TweaksPanel title="Tweaks">
+          <TweakSection title="Accent">
+            <TweakColor label="Brand color" value={tweaks.accent} onChange={v => setTweak('accent', v)} />
+            <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+              {['#6366F1', '#0EA5E9', '#10B981', '#F97316', '#EC4899', '#1E1B3A'].map(c => (
+                <button key={c} onClick={() => setTweak('accent', c)} title={c}
+                  style={{ width: 28, height: 28, borderRadius: 6, background: c, border: tweaks.accent.toLowerCase() === c.toLowerCase() ? '2px solid #fff' : '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', boxShadow: tweaks.accent.toLowerCase() === c.toLowerCase() ? '0 0 0 2px ' + c : 'none' }} />
+              ))}
+            </div>
+          </TweakSection>
+          <TweakSection title="Visual mode">
+            <TweakRadio value={tweaks.mode} onChange={v => setTweak('mode', v)}
+              options={[
+                { value: 'standard', label: 'Standard' },
+                { value: 'editorial', label: 'Editorial' },
+                { value: 'mono', label: 'Mono' }
+              ]} />
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginTop: 8, lineHeight: 1.4 }}>
+              {tweaks.mode === 'standard' && 'Inter throughout, soft-rounded cards, brand accent.'}
+              {tweaks.mode === 'editorial' && 'Fraunces serif headlines, sharp edges, magazine feel.'}
+              {tweaks.mode === 'mono' && 'Monochrome ink-on-paper, no accent color, technical.'}
+            </div>
+          </TweakSection>
+          <TweakSection title="Density">
+            <TweakRadio value={tweaks.density} onChange={v => setTweak('density', v)}
+              options={[
+                { value: 'comfortable', label: 'Comfortable' },
+                { value: 'compact', label: 'Compact' }
+              ]} />
+          </TweakSection>
+        </TweaksPanel>
+      );
+    }
+
+    const tweaksRoot = document.createElement('div');
+    document.body.appendChild(tweaksRoot);
+    ReactDOM.createRoot(tweaksRoot).render(<ArkoTweaks />);
   </script>
 </body>
 
