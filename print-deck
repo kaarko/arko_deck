@@ -1,0 +1,132 @@
+/* ═══════════════════════════════════════════════════ */
+/* ARKO DECK — PRINT STYLESHEET                         */
+/* ═══════════════════════════════════════════════════ */
+/*
+   Drop-in print CSS for any Arko slide deck built on the
+   .deck > .slide pattern (1920×1080 absolute-positioned slides
+   with one .active at a time).
+
+   Usage in a -print.html file:
+     <link rel="stylesheet" href="print-deck.css">
+
+   ...and add this <script> at the end of <body> to auto-open the
+   print dialog once fonts load:
+
+     <script>
+       window.addEventListener('load', function () {
+         (document.fonts && document.fonts.ready || Promise.resolve())
+           .then(() => setTimeout(() => window.print(), 600));
+       });
+     </script>
+
+   In the browser print dialog:
+     • Destination → Save as PDF
+     • Layout      → Landscape
+     • Margins     → None
+     • Background graphics → ON   (critical for color fidelity)
+*/
+
+@page {
+  size: 1920px 1080px;
+  margin: 0;
+}
+
+@media print {
+  /* Force colors and gradients to print */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html, body {
+    width: 1920px;
+    height: auto;
+    background: #fff !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* Hide on-screen chrome */
+  .nav,
+  .key-hint,
+  .tweaks-toggle,
+  .tweaks-panel,
+  [data-tweaks-root],
+  .toolbar,
+  #prev,
+  #next,
+  #dots,
+  #counter {
+    display: none !important;
+  }
+
+  /* Deck flows top-to-bottom; remove screen scaling/centering */
+  body {
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+
+  .deck {
+    position: static !important;
+    width: 1920px !important;
+    height: auto !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+  }
+
+  /* Each slide → its own landscape page at native canvas size */
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    width: 1920px !important;
+    height: 1080px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    display: flex !important;
+  }
+
+  .slide:last-of-type {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  .slide.active {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Disable motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition: none !important;
+  }
+
+  /* Kill shadows — they clip against slide overflow and produce gray bands */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+  }
+}
